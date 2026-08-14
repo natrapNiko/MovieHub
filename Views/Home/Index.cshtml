@@ -1,0 +1,101 @@
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+    var hero = Model.FeaturedMovies.FirstOrDefault();
+}
+
+@if (hero is not null)
+{
+    <section class="hero" style="--hero-bg: url('@(string.IsNullOrWhiteSpace(hero.PosterUrl) ? "" : hero.PosterUrl)')">
+        <div class="hero-overlay">
+            <div class="container">
+                <p class="hero-eyebrow"><i class="bi bi-stars"></i> Featured</p>
+                <h1 class="hero-title">@hero.Title</h1>
+                <div class="hero-meta">
+                    <partial name="_MovieRating" model="hero.AverageRating" />
+                    <span>@hero.ReleaseYear</span>
+                    <span class="dot">&bull;</span>
+                    <span>@hero.GenreName</span>
+                </div>
+                <p class="hero-description">@hero.ShortDescription</p>
+                <div class="hero-actions">
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@hero.Id" class="btn btn-accent btn-lg">
+                        <i class="bi bi-play-fill"></i> View Details
+                    </a>
+                    <a asp-controller="Movies" asp-action="Index" class="btn btn-outline-light btn-lg">Browse All Movies</a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<div class="container py-4">
+
+    <form class="mh-hero-search mb-5" asp-controller="Movies" asp-action="Index" method="get" role="search">
+        <input type="search" name="search" class="form-control form-control-lg" placeholder="Search by title, director, actor or genre&hellip;" />
+        <button type="submit" class="btn btn-accent btn-lg"><i class="bi bi-search"></i> Search</button>
+    </form>
+
+    @if (Model.Genres.Any())
+    {
+        <section class="mb-5">
+            <h2 class="section-title">Browse by Genre</h2>
+            <div class="genre-chip-row">
+                @foreach (var genre in Model.Genres)
+                {
+                    <a class="genre-chip" asp-controller="Movies" asp-action="Index" asp-route-genreId="@genre.Id">
+                        @genre.Name <span class="badge-count">@genre.MovieCount</span>
+                    </a>
+                }
+            </div>
+        </section>
+    }
+
+    @if (Model.PopularMovies.Any())
+    {
+        <section class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="section-title mb-0">Popular Movies</h2>
+                <a asp-controller="Movies" asp-action="Index" asp-route-sort="HighestRated" class="see-all-link">See all &rarr;</a>
+            </div>
+            <div class="movie-rail">
+                @foreach (var movie in Model.PopularMovies)
+                {
+                    <div class="movie-rail-item"><partial name="_MovieCard" model="movie" /></div>
+                }
+            </div>
+        </section>
+    }
+
+    @if (Model.RecentlyAddedMovies.Any())
+    {
+        <section class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="section-title mb-0">Recently Added</h2>
+                <a asp-controller="Movies" asp-action="Index" asp-route-sort="Newest" class="see-all-link">See all &rarr;</a>
+            </div>
+            <div class="movie-rail">
+                @foreach (var movie in Model.RecentlyAddedMovies)
+                {
+                    <div class="movie-rail-item"><partial name="_MovieCard" model="movie" /></div>
+                }
+            </div>
+        </section>
+    }
+
+    @if (Model.HighestRatedMovies.Any())
+    {
+        <section class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="section-title mb-0">Highest Rated</h2>
+                <a asp-controller="Movies" asp-action="Index" asp-route-sort="HighestRated" class="see-all-link">See all &rarr;</a>
+            </div>
+            <div class="movie-rail">
+                @foreach (var movie in Model.HighestRatedMovies)
+                {
+                    <div class="movie-rail-item"><partial name="_MovieCard" model="movie" /></div>
+                }
+            </div>
+        </section>
+    }
+</div>

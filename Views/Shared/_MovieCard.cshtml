@@ -1,0 +1,27 @@
+@model MovieCardViewModel
+<div class="movie-card h-100">
+    <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id" class="movie-card-poster-link">
+        <div class="movie-card-poster">
+            <img src="@(string.IsNullOrWhiteSpace(Model.PosterUrl) ? "https://placehold.co/400x600/1a1a2e/e94560?text=" + Uri.EscapeDataString(Model.Title) : Model.PosterUrl)"
+                 alt="@Model.Title poster" loading="lazy" />
+            <div class="movie-card-overlay">
+                <span class="btn btn-accent btn-sm">View Details</span>
+            </div>
+            <partial name="_MovieRating" model="Model.AverageRating" />
+        </div>
+    </a>
+    <div class="movie-card-body">
+        <h3 class="movie-card-title">
+            <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id">@Model.Title</a>
+        </h3>
+        <div class="movie-card-meta">
+            <span>@Model.ReleaseYear</span>
+            @if (!string.IsNullOrWhiteSpace(Model.GenreName))
+            {
+                <span class="dot">&bull;</span>
+                <span>@Model.GenreName</span>
+            }
+        </div>
+        <p class="movie-card-description">@Model.ShortDescription</p>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+@model Genre
+@{
+    ViewData["Title"] = "Edit Genre";
+}
+
+<div class="container py-4">
+    <h1 class="section-title mb-4">Edit Genre</h1>
+
+    <form asp-controller="Genres" asp-action="Edit" asp-route-id="@Model.Id" method="post" class="mh-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-accent"><i class="bi bi-check-lg"></i> Save Changes</button>
+        <a asp-controller="Genres" asp-action="Index" class="btn btn-outline-light">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

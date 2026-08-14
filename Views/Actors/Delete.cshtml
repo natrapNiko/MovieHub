@@ -1,0 +1,17 @@
+@model Actor
+@{
+    ViewData["Title"] = "Delete Actor";
+}
+
+<div class="container py-4">
+    <h1 class="section-title mb-4 text-danger">Delete Actor</h1>
+
+    <div class="mh-form">
+        <p>Are you sure you want to delete <strong>@Model.FullName</strong>? This will also remove their cast credits from any movies.</p>
+
+        <form asp-controller="Actors" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+            <a asp-controller="Actors" asp-action="Index" class="btn btn-outline-light">Cancel</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+@model Actor
+@{
+    ViewData["Title"] = Model.FullName;
+}
+
+<div class="container py-4">
+    <a asp-controller="Actors" asp-action="Index" class="back-link"><i class="bi bi-arrow-left"></i> Back to Actors</a>
+
+    <div class="row g-4 mt-1">
+        <div class="col-md-3">
+            <img class="actor-details-photo" src="@(Model.PhotoUrl ?? "https://placehold.co/300x300/1a1a2e/e94560?text=" + Uri.EscapeDataString(Model.FullName))" alt="@Model.FullName" />
+            @if (User.IsInRole(Roles.Admin))
+            {
+                <div class="d-flex gap-2 mt-2">
+                    <a asp-controller="Actors" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-light flex-fill"><i class="bi bi-pencil"></i> Edit</a>
+                    <a asp-controller="Actors" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger flex-fill"><i class="bi bi-trash"></i> Delete</a>
+                </div>
+            }
+        </div>
+        <div class="col-md-9">
+            <h1>@Model.FullName</h1>
+            @if (Model.BirthDate.HasValue)
+            {
+                <p class="text-muted">Born @Model.BirthDate.Value.ToString("MMMM d, yyyy")</p>
+            }
+            <p>@Model.Biography</p>
+
+            <h2 class="section-title mt-4">Filmography</h2>
+            @if (Model.MovieActors.Any())
+            {
+                <div class="filmography-list">
+                    @foreach (var ma in Model.MovieActors.Where(ma => ma.Movie is not null))
+                    {
+                        <a class="filmography-item" asp-controller="Movies" asp-action="Details" asp-route-id="@ma.MovieId">
+                            <span>@ma.Movie!.Title (@ma.Movie.ReleaseYear)</span>
+                            @if (!string.IsNullOrWhiteSpace(ma.CharacterName))
+                            {
+                                <span class="text-muted">as @ma.CharacterName</span>
+                            }
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">No movies on file yet.</p>
+            }
+        </div>
+    </div>
+</div>

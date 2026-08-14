@@ -1,0 +1,7 @@
+@model double
+@{
+    var ratingClass = Model >= 7.5 ? "rating-high" : Model >= 5 ? "rating-mid" : "rating-low";
+}
+<span class="rating-badge @ratingClass" title="@Model.ToString("0.0") out of 10">
+    <i class="bi bi-star-fill"></i> @Model.ToString("0.0")
+</span>

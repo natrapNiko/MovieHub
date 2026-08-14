@@ -1,0 +1,34 @@
+@model Genre
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container py-4">
+    <a asp-controller="Genres" asp-action="Index" class="back-link"><i class="bi bi-arrow-left"></i> Back to Genres</a>
+
+    <h1 class="section-title mt-3">@Model.Name</h1>
+    <p class="text-muted">@Model.Description</p>
+
+    <h2 class="section-title mt-4">Movies in @Model.Name</h2>
+    @if (Model.Movies.Any())
+    {
+        <div class="movie-grid">
+            @foreach (var movie in Model.Movies)
+            {
+                <partial name="_MovieCard" model="@(new MovieCardViewModel {
+                    Id = movie.Id,
+                    Title = movie.Title,
+                    ReleaseYear = movie.ReleaseYear,
+                    GenreName = Model.Name,
+                    AverageRating = movie.Rating,
+                    PosterUrl = movie.PosterUrl,
+                    ShortDescription = movie.Description.Length > 140 ? movie.Description.Substring(0, 140) + "..." : movie.Description
+                })" />
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-muted">No movies in this genre yet.</p>
+    }
+</div>

@@ -1,0 +1,82 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container py-4">
+    <h1 class="section-title mb-4">Admin Dashboard</h1>
+
+    <div class="stats-grid mb-5">
+        <div class="stat-card">
+            <i class="bi bi-film"></i>
+            <div class="stat-value">@Model.TotalMovies</div>
+            <div class="stat-label">Movies</div>
+        </div>
+        <div class="stat-card">
+            <i class="bi bi-people-fill"></i>
+            <div class="stat-value">@Model.TotalUsers</div>
+            <div class="stat-label">Users</div>
+        </div>
+        <div class="stat-card">
+            <i class="bi bi-tags-fill"></i>
+            <div class="stat-value">@Model.TotalGenres</div>
+            <div class="stat-label">Genres</div>
+        </div>
+        <div class="stat-card">
+            <i class="bi bi-person-badge"></i>
+            <div class="stat-value">@Model.TotalActors</div>
+            <div class="stat-label">Actors</div>
+        </div>
+        <div class="stat-card">
+            <i class="bi bi-chat-square-text-fill"></i>
+            <div class="stat-value">@Model.TotalReviews</div>
+            <div class="stat-label">Reviews</div>
+        </div>
+        <div class="stat-card">
+            <i class="bi bi-star-fill"></i>
+            <div class="stat-value">@Model.AverageMovieRating.ToString("0.0")</div>
+            <div class="stat-label">Avg. Rating</div>
+        </div>
+    </div>
+
+    <h2 class="section-title mb-3">Manage</h2>
+    <div class="admin-links-grid mb-5">
+        <a class="admin-link-card" asp-controller="Movies" asp-action="Index"><i class="bi bi-film"></i> Movies</a>
+        <a class="admin-link-card" asp-controller="Genres" asp-action="Index"><i class="bi bi-tags-fill"></i> Genres</a>
+        <a class="admin-link-card" asp-controller="Actors" asp-action="Index"><i class="bi bi-person-badge"></i> Actors</a>
+        <a class="admin-link-card" asp-controller="Admin" asp-action="Users"><i class="bi bi-people-fill"></i> Users</a>
+        <a class="admin-link-card" asp-controller="Admin" asp-action="Reviews"><i class="bi bi-chat-square-text-fill"></i> Reviews</a>
+    </div>
+
+    <h2 class="section-title mb-3">Recent Reviews</h2>
+    @if (Model.RecentReviews.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Movie</th>
+                        <th>User</th>
+                        <th>Rating</th>
+                        <th>Posted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var review in Model.RecentReviews)
+                    {
+                        <tr>
+                            <td>@review.MovieTitle</td>
+                            <td>@review.UserDisplayName</td>
+                            <td><partial name="_MovieRating" model="@((double)review.Rating)" /></td>
+                            <td>@review.CreatedAt.ToString("MMM d, yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-muted">No reviews yet.</p>
+    }
+</div>

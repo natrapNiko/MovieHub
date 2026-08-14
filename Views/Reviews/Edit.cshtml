@@ -1,0 +1,34 @@
+@model ReviewFormViewModel
+@{
+    ViewData["Title"] = "Edit Review";
+}
+
+<div class="container py-4">
+    <h1 class="section-title mb-1">Edit Review</h1>
+    <p class="text-muted mb-4">for <strong>@Model.MovieTitle</strong></p>
+
+    <form asp-controller="Reviews" asp-action="Edit" asp-route-id="@Model.Id" method="post" class="mh-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="MovieId" />
+        <input type="hidden" asp-for="MovieTitle" />
+
+        <div class="mb-3">
+            <label asp-for="Rating" class="form-label"></label>
+            <input asp-for="Rating" type="number" min="1" max="10" class="form-control" style="max-width: 120px;" />
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Comment" class="form-label"></label>
+            <textarea asp-for="Comment" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-accent"><i class="bi bi-check-lg"></i> Save Changes</button>
+        <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.MovieId" class="btn btn-outline-light">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,62 @@
+@model MovieListViewModel
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<div class="container py-4">
+    <h1 class="section-title mb-4">Movies</h1>
+
+    <form asp-controller="Movies" asp-action="Index" method="get" class="mh-filter-bar mb-4">
+        <div class="row g-2">
+            <div class="col-12 col-lg-3">
+                <input type="search" name="search" value="@Model.Search" class="form-control" placeholder="Search title, director, actor&hellip;" />
+            </div>
+            <div class="col-6 col-lg-2">
+                <select name="genreId" class="form-select" asp-items="@(new SelectList(Model.AvailableGenres, "Id", "Name", Model.GenreId))">
+                    <option value="">All Genres</option>
+                </select>
+            </div>
+            <div class="col-6 col-lg-2">
+                <select name="year" class="form-select" asp-items="@(new SelectList(Model.AvailableYears, Model.Year))">
+                    <option value="">All Years</option>
+                </select>
+            </div>
+            <div class="col-6 col-lg-2">
+                <input type="number" name="minRating" value="@Model.MinRating" min="0" max="10" step="0.1" class="form-control" placeholder="Min rating" />
+            </div>
+            <div class="col-6 col-lg-2">
+                <input type="text" name="director" value="@Model.Director" class="form-control" placeholder="Director" />
+            </div>
+            <div class="col-12 col-lg-1">
+                <button type="submit" class="btn btn-accent w-100"><i class="bi bi-funnel-fill"></i></button>
+            </div>
+        </div>
+        <div class="row g-2 mt-2">
+            <div class="col-12 col-lg-4 offset-lg-8">
+                <select asp-for="Sort" class="form-select" onchange="this.form.submit()" asp-items="Html.GetEnumSelectList<MovieSortOrder>()"></select>
+            </div>
+        </div>
+    </form>
+
+    <p class="text-muted mb-3">@Model.Pagination.TotalItems movie(s) found</p>
+
+    @if (Model.Movies.Any())
+    {
+        <div class="movie-grid">
+            @foreach (var movie in Model.Movies)
+            {
+                <partial name="_MovieCard" model="movie" />
+            }
+        </div>
+
+        <partial name="_Pagination" model="Model.Pagination" />
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="bi bi-emoji-frown display-3"></i>
+            <p class="lead mt-3">No movies matched your search.</p>
+            <a asp-controller="Movies" asp-action="Index" class="btn btn-accent">Clear Filters</a>
+        </div>
+    }
+</div>

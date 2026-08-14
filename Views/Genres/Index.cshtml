@@ -1,0 +1,32 @@
+@model List<Genre>
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="section-title mb-0">Genres</h1>
+        @if (User.IsInRole(Roles.Admin))
+        {
+            <a asp-controller="Genres" asp-action="Create" class="btn btn-accent"><i class="bi bi-plus-lg"></i> New Genre</a>
+        }
+    </div>
+
+    <div class="genre-grid">
+        @foreach (var genre in Model)
+        {
+            <div class="genre-card">
+                <h3><a asp-controller="Genres" asp-action="Details" asp-route-id="@genre.Id">@genre.Name</a></h3>
+                <p class="text-muted">@genre.Description</p>
+                <div class="d-flex gap-2">
+                    <a asp-controller="Movies" asp-action="Index" asp-route-genreId="@genre.Id" class="btn btn-sm btn-outline-light">Browse Movies</a>
+                    @if (User.IsInRole(Roles.Admin))
+                    {
+                        <a asp-controller="Genres" asp-action="Edit" asp-route-id="@genre.Id" class="btn btn-sm btn-outline-light"><i class="bi bi-pencil"></i></a>
+                        <a asp-controller="Genres" asp-action="Delete" asp-route-id="@genre.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

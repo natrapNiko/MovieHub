@@ -1,0 +1,47 @@
+@model List<Review>
+@{
+    ViewData["Title"] = "Manage Reviews";
+}
+
+<div class="container py-4">
+    <a asp-controller="Admin" asp-action="Index" class="back-link"><i class="bi bi-arrow-left"></i> Back to Dashboard</a>
+    <h1 class="section-title mt-3 mb-4">Manage Reviews</h1>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Movie</th>
+                    <th>User</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th>Posted</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var review in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (review.Movie is not null)
+                            {
+                                <a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId">@review.Movie.Title</a>
+                            }
+                        </td>
+                        <td>@(review.User?.DisplayName ?? review.User?.Email)</td>
+                        <td><partial name="_MovieRating" model="@((double)review.Rating)" /></td>
+                        <td class="review-comment-cell">@review.Comment</td>
+                        <td>@review.CreatedAt.ToString("MMM d, yyyy")</td>
+                        <td>
+                            <form asp-controller="Admin" asp-action="DeleteReview" method="post" onsubmit="return confirm('Delete this review?');">
+                                <input type="hidden" name="id" value="@review.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

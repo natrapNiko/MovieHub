@@ -1,0 +1,24 @@
+@model MovieFormViewModel
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+
+<div class="container py-4">
+    <h1 class="section-title mb-4">Edit Movie</h1>
+
+    <form asp-controller="Movies" asp-action="Edit" asp-route-id="@Model.Id" method="post" class="mh-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <partial name="_MovieFormFields" />
+
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-accent"><i class="bi bi-check-lg"></i> Save Changes</button>
+            <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-light">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

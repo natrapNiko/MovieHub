@@ -1,0 +1,53 @@
+@model List<Favorite>
+@{
+    ViewData["Title"] = "My Favorites";
+}
+
+<div class="container py-4">
+    <h1 class="section-title mb-4">My Favorites</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <i class="bi bi-heart display-3"></i>
+            <p class="lead mt-3">You haven't added any favorites yet.</p>
+            <a asp-controller="Movies" asp-action="Index" class="btn btn-accent">Browse Movies</a>
+        </div>
+    }
+    else
+    {
+        <div class="movie-grid">
+            @foreach (var favorite in Model.Where(f => f.Movie is not null))
+            {
+                var movie = favorite.Movie!;
+                <div class="movie-card h-100">
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="movie-card-poster-link">
+                        <div class="movie-card-poster">
+                            <img src="@(movie.PosterUrl ?? "https://placehold.co/400x600/1a1a2e/e94560?text=" + Uri.EscapeDataString(movie.Title))" alt="@movie.Title poster" loading="lazy" />
+                            <div class="movie-card-overlay">
+                                <span class="btn btn-accent btn-sm">View Details</span>
+                            </div>
+                            <partial name="_MovieRating" model="movie.Rating" />
+                        </div>
+                    </a>
+                    <div class="movie-card-body">
+                        <h3 class="movie-card-title"><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></h3>
+                        <div class="movie-card-meta">
+                            <span>@movie.ReleaseYear</span>
+                            @if (movie.Genre is not null)
+                            {
+                                <span class="dot">&bull;</span>
+                                <span>@movie.Genre.Name</span>
+                            }
+                        </div>
+                        <form asp-controller="Favorites" asp-action="Remove" method="post" class="mt-2">
+                            <input type="hidden" name="movieId" value="@movie.Id" />
+                            <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Favorites")" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger w-100"><i class="bi bi-heartbreak"></i> Remove</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

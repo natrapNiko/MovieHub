@@ -1,0 +1,26 @@
+@model Movie
+@{
+    ViewData["Title"] = "Delete Movie";
+}
+
+<div class="container py-4">
+    <h1 class="section-title mb-4 text-danger">Delete Movie</h1>
+
+    <div class="mh-form">
+        <p>Are you sure you want to delete the following movie? This will also remove its reviews and favorites, and cannot be undone.</p>
+
+        <dl class="row">
+            <dt class="col-sm-2">Title</dt>
+            <dd class="col-sm-10">@Model.Title</dd>
+            <dt class="col-sm-2">Director</dt>
+            <dd class="col-sm-10">@Model.Director</dd>
+            <dt class="col-sm-2">Release Date</dt>
+            <dd class="col-sm-10">@Model.ReleaseDate.ToString("MMMM d, yyyy")</dd>
+        </dl>
+
+        <form asp-controller="Movies" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+            <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-light">Cancel</a>
+        </form>
+    </div>
+</div>

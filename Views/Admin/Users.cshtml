@@ -1,0 +1,55 @@
+@model List<AdminUserRowViewModel>
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<div class="container py-4">
+    <a asp-controller="Admin" asp-action="Index" class="back-link"><i class="bi bi-arrow-left"></i> Back to Dashboard</a>
+    <h1 class="section-title mt-3 mb-4">Manage Users</h1>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Display Name</th>
+                    <th>Joined</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Email</td>
+                        <td>@user.DisplayName</td>
+                        <td>@user.CreatedAt.ToString("MMM d, yyyy")</td>
+                        <td>
+                            @if (user.IsAdmin)
+                            {
+                                <span class="badge text-bg-warning">Admin</span>
+                            }
+                            else
+                            {
+                                <span class="badge text-bg-secondary">User</span>
+                            }
+                        </td>
+                        <td class="d-flex gap-2">
+                            <form asp-controller="Admin" asp-action="ToggleAdminRole" method="post">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-light">
+                                    @(user.IsAdmin ? "Revoke Admin" : "Make Admin")
+                                </button>
+                            </form>
+                            <form asp-controller="Admin" asp-action="DeleteUser" method="post" onsubmit="return confirm('Delete this user account? This cannot be undone.');">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+@model List<Actor>
+@{
+    ViewData["Title"] = "Actors";
+    var pagination = (PaginationViewModel)ViewBag.Pagination;
+    var search = (string?)ViewBag.Search;
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="section-title mb-0">Actors</h1>
+        @if (User.IsInRole(Roles.Admin))
+        {
+            <a asp-controller="Actors" asp-action="Create" class="btn btn-accent"><i class="bi bi-plus-lg"></i> New Actor</a>
+        }
+    </div>
+
+    <form asp-controller="Actors" asp-action="Index" method="get" class="mh-filter-bar mb-4">
+        <div class="row g-2">
+            <div class="col-10 col-lg-4">
+                <input type="search" name="search" value="@search" class="form-control" placeholder="Search actors by name&hellip;" />
+            </div>
+            <div class="col-2 col-lg-1">
+                <button type="submit" class="btn btn-accent w-100"><i class="bi bi-search"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <div class="actor-grid">
+        @foreach (var actor in Model)
+        {
+            <a class="actor-card" asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">
+                <img src="@(actor.PhotoUrl ?? "https://placehold.co/300x300/1a1a2e/e94560?text=" + Uri.EscapeDataString(actor.FullName))" alt="@actor.FullName" />
+                <h3>@actor.FullName</h3>
+            </a>
+        }
+    </div>
+
+    <partial name="_Pagination" model="pagination" />
+</div>

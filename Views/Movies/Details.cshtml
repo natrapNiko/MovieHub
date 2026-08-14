@@ -1,0 +1,138 @@
+@model MovieDetailsViewModel
+@{
+    ViewData["Title"] = Model.Movie.Title;
+    var movie = Model.Movie;
+}
+
+<div class="container py-4">
+    <a asp-controller="Movies" asp-action="Index" class="back-link"><i class="bi bi-arrow-left"></i> Back to Movies</a>
+
+    <div class="movie-details-hero mt-3">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <img class="movie-details-poster" src="@(movie.PosterUrl ?? "https://placehold.co/400x600/1a1a2e/e94560?text=" + Uri.EscapeDataString(movie.Title))" alt="@movie.Title poster" />
+
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <form asp-controller="Favorites" asp-action="@(Model.IsFavorite ? "Remove" : "Add")" method="post" class="mt-3">
+                        <input type="hidden" name="movieId" value="@movie.Id" />
+                        <input type="hidden" name="returnUrl" value="@Url.Action("Details", "Movies", new { id = movie.Id })" />
+                        <button type="submit" class="btn @(Model.IsFavorite ? "btn-outline-light" : "btn-accent") w-100">
+                            <i class="bi @(Model.IsFavorite ? "bi-heart-fill" : "bi-heart")"></i>
+                            @(Model.IsFavorite ? "Remove from Favorites" : "Add to Favorites")
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-light w-100 mt-3">
+                        <i class="bi bi-heart"></i> Login to Add Favorite
+                    </a>
+                }
+
+                @if (User.IsInRole(Roles.Admin))
+                {
+                    <div class="d-flex gap-2 mt-2">
+                        <a asp-controller="Movies" asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-outline-light flex-fill"><i class="bi bi-pencil"></i> Edit</a>
+                        <a asp-controller="Movies" asp-action="Delete" asp-route-id="@movie.Id" class="btn btn-outline-danger flex-fill"><i class="bi bi-trash"></i> Delete</a>
+                    </div>
+                }
+            </div>
+            <div class="col-md-8">
+                <h1 class="mb-2">@movie.Title</h1>
+                <div class="hero-meta mb-3">
+                    <partial name="_MovieRating" model="Model.AverageRating" />
+                    <span>@movie.ReleaseYear</span>
+                    <span class="dot">&bull;</span>
+                    <span>@movie.Duration min</span>
+                    @if (movie.Genre is not null)
+                    {
+                        <span class="dot">&bull;</span>
+                        <a class="genre-inline-link" asp-controller="Genres" asp-action="Details" asp-route-id="@movie.Genre.Id">@movie.Genre.Name</a>
+                    }
+                </div>
+                <p class="text-muted mb-1"><strong>Director:</strong> @movie.Director</p>
+                <p class="text-muted mb-3">@Model.ReviewCount review(s)</p>
+                <p class="movie-details-description">@movie.Description</p>
+
+                @if (movie.MovieActors.Any())
+                {
+                    <h5 class="mt-4">Cast</h5>
+                    <div class="cast-row">
+                        @foreach (var ma in movie.MovieActors)
+                        {
+                            <a class="cast-chip" asp-controller="Actors" asp-action="Details" asp-route-id="@ma.ActorId">
+                                <img src="@(ma.Actor?.PhotoUrl ?? "https://placehold.co/80x80/1a1a2e/e94560?text=%3F")" alt="@ma.Actor?.FullName" />
+                                <span>
+                                    @ma.Actor?.FullName
+                                    @if (!string.IsNullOrWhiteSpace(ma.CharacterName))
+                                    {
+                                        <small class="d-block text-muted">as @ma.CharacterName</small>
+                                    }
+                                </span>
+                            </a>
+                        }
+                    </div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model.YouTubeEmbedId))
+                {
+                    <h5 class="mt-4">Trailer</h5>
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/@Model.YouTubeEmbedId" title="@movie.Title trailer" allowfullscreen></iframe>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <section class="mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="section-title mb-0">Reviews</h2>
+            @if (Model.CanReview)
+            {
+                <a asp-controller="Reviews" asp-action="Create" asp-route-movieId="@movie.Id" class="btn btn-accent">
+                    <i class="bi bi-pencil-square"></i> Write a Review
+                </a>
+            }
+            else if (Model.CurrentUserReview is not null)
+            {
+                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@Model.CurrentUserReview.Id" class="btn btn-outline-light">
+                    <i class="bi bi-pencil"></i> Edit My Review
+                </a>
+            }
+        </div>
+
+        @if (!Model.Reviews.Any())
+        {
+            <p class="text-muted">No reviews yet. Be the first to share your thoughts!</p>
+        }
+        else
+        {
+            <div class="review-list">
+                @foreach (var review in Model.Reviews)
+                {
+                    <div class="review-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>@(string.IsNullOrWhiteSpace(review.User?.DisplayName) ? review.User?.Email : review.User?.DisplayName)</strong>
+                                <span class="text-muted small ms-2">@review.CreatedAt.ToString("MMM d, yyyy")</span>
+                            </div>
+                            <partial name="_MovieRating" model="@((double)review.Rating)" />
+                        </div>
+                        <p class="mb-2 mt-2">@review.Comment</p>
+
+                        @if (User.Identity!.IsAuthenticated && (review.UserId == Model.CurrentUserId || User.IsInRole(Roles.Admin)))
+                        {
+                            <form asp-controller="Reviews" asp-action="Delete" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@review.Id" />
+                                <input type="hidden" name="movieId" value="@movie.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this review?');">Delete</button>
+                            </form>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </section>
+</div>
