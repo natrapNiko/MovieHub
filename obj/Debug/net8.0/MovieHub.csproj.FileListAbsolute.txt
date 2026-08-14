@@ -151,3 +151,4 @@ C:\Users\niksr\OneDrive\Desktop\MovieHub\MovieHub\obj\Debug\net8.0\refint\MovieH
 C:\Users\niksr\OneDrive\Desktop\MovieHub\MovieHub\obj\Debug\net8.0\MovieHub.pdb
 C:\Users\niksr\OneDrive\Desktop\MovieHub\MovieHub\obj\Debug\net8.0\MovieHub.genruntimeconfig.cache
 C:\Users\niksr\OneDrive\Desktop\MovieHub\MovieHub\obj\Debug\net8.0\ref\MovieHub.dll
+C:\Users\niksr\OneDrive\Desktop\MovieHub\MovieHub\obj\Debug\net8.0\MovieHub.sourcelink.json

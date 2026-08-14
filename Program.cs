@@ -7,7 +7,7 @@ using MovieHub.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ---------- Services ----------
+//Services
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -48,7 +48,7 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
-// ---------- HTTP pipeline ----------
+//HTTP pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -75,7 +75,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-// ---------- Database migration + seed data ----------
+//Database migration + seed data
 using (var scope = app.Services.CreateScope())
 {
     var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("DbInitializer");

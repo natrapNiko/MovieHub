@@ -1,6 +1,4 @@
-/* ==========================================================================
-   MovieHub — original dark, movie-streaming inspired theme
-   ========================================================================== */
+/*MovieHub — original dark, movie-streaming inspired theme*/
 
 :root {
   --mh-bg: #0f1017;
@@ -48,7 +46,7 @@ a:hover {
   color: var(--mh-text-muted) !important;
 }
 
-/* ---------- Buttons ---------- */
+/*Buttons*/
 .btn-accent {
   background-color: var(--mh-accent);
   border-color: var(--mh-accent);
@@ -66,7 +64,7 @@ a:hover {
   color: #0f1017;
 }
 
-/* ---------- Navbar ---------- */
+/*Navbar*/
 .mh-navbar {
   background-color: rgba(15, 16, 23, 0.92);
   backdrop-filter: blur(8px);
@@ -108,7 +106,7 @@ a:hover {
   color: var(--mh-text-muted);
 }
 
-/* ---------- Hero ---------- */
+/*Hero*/
 .hero {
   position: relative;
   min-height: 60vh;
@@ -168,7 +166,7 @@ a:hover {
   max-width: 640px;
 }
 
-/* ---------- Sections ---------- */
+/*Sections*/
 .section-title {
   font-weight: 700;
   font-size: 1.5rem;
@@ -183,7 +181,7 @@ a:hover {
   color: var(--mh-text-muted);
 }
 
-/* ---------- Genre chips ---------- */
+/*Genre chips*/
 .genre-chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -210,7 +208,7 @@ a:hover {
   font-size: 0.8rem;
 }
 
-/* ---------- Movie rail (horizontal scroll) ---------- */
+/*Movie rail (horizontal scroll)*/
 .movie-rail {
   display: flex;
   gap: 1.1rem;
@@ -224,14 +222,14 @@ a:hover {
   scroll-snap-align: start;
 }
 
-/* ---------- Movie grid ---------- */
+/*Movie grid*/
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.1rem;
 }
 
-/* ---------- Movie card ---------- */
+/*Movie card*/
 .movie-card {
   background-color: var(--mh-bg-card);
   border: 1px solid var(--mh-border);
@@ -315,7 +313,7 @@ a:hover {
   margin-bottom: 0;
 }
 
-/* ---------- Rating badge ---------- */
+/*Rating badge*/
 .rating-badge {
   position: absolute;
   top: 0.6rem;
@@ -335,7 +333,7 @@ a:hover {
 .rating-badge.rating-mid { color: var(--mh-gold); }
 .rating-badge.rating-low { color: var(--mh-accent); }
 
-/* ---------- Filter bar ---------- */
+/*Filter bar*/
 .mh-filter-bar {
   background-color: var(--mh-bg-card);
   border: 1px solid var(--mh-border);
@@ -350,7 +348,7 @@ a:hover {
   color: var(--mh-text);
 }
 
-/* ---------- Forms ---------- */
+/*Forms*/
 .mh-form {
   background-color: var(--mh-bg-card);
   border: 1px solid var(--mh-border);
@@ -374,7 +372,7 @@ a:hover {
   box-shadow: 0 0 0 0.2rem rgba(233, 69, 96, 0.25);
 }
 
-/* ---------- Auth pages ---------- */
+/*Auth pages*/
 .auth-page {
   padding: 4rem 0;
 }
@@ -386,7 +384,7 @@ a:hover {
   padding: 2rem;
 }
 
-/* ---------- Movie details ---------- */
+/*Movie details*/
 .back-link {
   color: var(--mh-text-muted);
   font-weight: 500;
@@ -440,7 +438,7 @@ a:hover {
   object-fit: cover;
 }
 
-/* ---------- Reviews ---------- */
+/*Reviews*/
 .review-card {
   background-color: var(--mh-bg-card);
   border: 1px solid var(--mh-border);
@@ -454,7 +452,7 @@ a:hover {
   white-space: normal;
 }
 
-/* ---------- Genres ---------- */
+/*Genres*/
 .genre-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -468,7 +466,7 @@ a:hover {
   padding: 1.25rem;
 }
 
-/* ---------- Actors ---------- */
+/*Actors*/
 .actor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -526,7 +524,7 @@ a:hover {
   color: var(--mh-text);
 }
 
-/* ---------- Admin dashboard ---------- */
+/*Admin dashboard*/
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -585,13 +583,13 @@ a:hover {
   color: var(--mh-text);
 }
 
-/* ---------- Tables ---------- */
+/*Tables*/
 .table-dark {
   --bs-table-bg: var(--mh-bg-card);
   border: 1px solid var(--mh-border);
 }
 
-/* ---------- Empty state / error pages ---------- */
+/*Empty state / error pages*/
 .empty-state {
   text-align: center;
   padding: 4rem 1rem;
@@ -605,7 +603,7 @@ a:hover {
   line-height: 1;
 }
 
-/* ---------- Pagination ---------- */
+/*Pagination*/
 .mh-pagination .page-link {
   background-color: var(--mh-bg-card);
   border-color: var(--mh-border);
@@ -622,7 +620,7 @@ a:hover {
   color: var(--mh-text-muted);
 }
 
-/* ---------- Footer ---------- */
+/*Footer*/
 .mh-footer {
   background-color: var(--mh-bg-elevated);
   border-top: 1px solid var(--mh-border);
@@ -637,7 +635,7 @@ a:hover {
   color: var(--mh-accent);
 }
 
-/* ---------- Scrollbar polish (movie rail) ---------- */
+/*Scrollbar polish (movie rail)*/
 .movie-rail::-webkit-scrollbar {
   height: 8px;
 }

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MovieHub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60e6492a7a5feb6b2fc21708ea7fc0d00a8da819")]
 [assembly: System.Reflection.AssemblyProductAttribute("MovieHub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MovieHub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
