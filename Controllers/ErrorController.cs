@@ -4,12 +4,10 @@ using MovieHub.ViewModels;
 
 namespace MovieHub.Controllers;
 
-/// <summary>
-/// Central error handling controller. Unhandled exceptions are routed here
-/// via app.UseExceptionHandler("/Error/Index") and HTTP status codes such as
-/// 404/403 via app.UseStatusCodePagesWithReExecute("/Error/{0}"). Neither
-/// path exposes internal exception details to the end user.
-/// </summary>
+//Central error handling controller. Unhandled exceptions are routed here
+//via app.UseExceptionHandler("/Error/Index") and HTTP status codes such as
+//404/403 via app.UseStatusCodePagesWithReExecute("/Error/{0}"). Neither
+//path exposes internal exception details to the end user.
 [Route("Error")]
 public class ErrorController : Controller
 {

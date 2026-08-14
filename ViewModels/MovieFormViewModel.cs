@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MovieHub.ViewModels;
 
-/// <summary>
-/// Used by the admin Create/Edit movie views. Keeps the entity free of
-/// UI-only concerns such as the multi-select actor list.
-/// </summary>
+//Used by the admin Create/Edit movie views. Keeps the entity free of
+//UI-only concerns such as the multi-select actor list.
 public class MovieFormViewModel
 {
     public int Id { get; set; }

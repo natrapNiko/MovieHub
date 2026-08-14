@@ -38,10 +38,8 @@ public class Movie
     [Url(ErrorMessage = "Please provide a valid URL.")]
     public string? TrailerUrl { get; set; }
 
-    /// <summary>
-    /// Editorial base rating (0-10) set by an admin. The rating displayed to users
-    /// is generally the average of user reviews; this acts as a fallback/seed value.
-    /// </summary>
+    //Editorial base rating (0-10) set by an admin. The rating displayed to users
+    //is generally the average of user reviews; this acts as a fallback/seed value.
     [Range(0, 10, ErrorMessage = "Rating must be between 0 and 10.")]
     public double Rating { get; set; }
 

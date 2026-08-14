@@ -5,11 +5,9 @@ using MovieHub.Models;
 
 namespace MovieHub.Data;
 
-/// <summary>
-/// Applies pending migrations and seeds the database with roles, a
-/// development administrator account, genres, actors and movies.
-/// Called once from Program.cs on application startup.
-/// </summary>
+//Applies pending migrations and seeds the database with roles, a
+//development administrator account, genres, actors and movies.
+//Called once from Program.cs on application startup.
 public static class DbInitializer
 {
     public static async Task InitializeAsync(IServiceProvider serviceProvider, IConfiguration configuration, ILogger logger)

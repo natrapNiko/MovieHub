@@ -9,11 +9,9 @@ using MovieHub.Models;
 
 namespace MovieHub.Areas.Identity.Pages.Account;
 
-/// <summary>
-/// Overrides the default Identity UI registration page (same route,
-/// "/Identity/Account/Register") so new accounts capture a display name and
-/// are automatically placed in the "User" role.
-/// </summary>
+//Overrides the default Identity UI registration page (same route,
+//"/Identity/Account/Register") so new accounts capture a display name and
+//are automatically placed in the "User" role.
 public class RegisterModel : PageModel
 {
     private readonly SignInManager<ApplicationUser> _signInManager;

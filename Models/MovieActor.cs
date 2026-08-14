@@ -2,11 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieHub.Models;
 
-/// <summary>
-/// Join entity representing the many-to-many relationship between
-/// <see cref="Movie"/> and <see cref="Actor"/>, with the character name
-/// the actor played in that specific movie.
-/// </summary>
+//Join entity representing the many-to-many relationship between
+//<see cref="Movie"/> and <see cref="Actor"/>, with the character name
+//the actor played in that specific movie.
 public class MovieActor
 {
     public int MovieId { get; set; }

@@ -23,9 +23,7 @@ public enum MovieSortOrder
     LowestRated
 }
 
-/// <summary>
-/// Backs /Movies (search, filter, sort and pagination combined).
-/// </summary>
+//Backs /Movies (search, filter, sort and pagination combined).
 public class MovieListViewModel
 {
     public List<MovieCardViewModel> Movies { get; set; } = new();

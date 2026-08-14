@@ -9,11 +9,9 @@ using MovieHub.Models;
 
 namespace MovieHub.Areas.Identity.Pages.Account;
 
-/// <summary>
-/// Overrides the default Identity UI login page (same route,
-/// "/Identity/Account/Login") so it matches MovieHub's own styling
-/// instead of the default scaffolded Identity UI.
-/// </summary>
+//Overrides the default Identity UI login page (same route,
+//"/Identity/Account/Login") so it matches MovieHub's own styling
+//instead of the default scaffolded Identity UI.
 public class LoginModel : PageModel
 {
     private readonly SignInManager<ApplicationUser> _signInManager;

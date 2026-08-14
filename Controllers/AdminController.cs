@@ -9,13 +9,11 @@ using MovieHub.ViewModels;
 
 namespace MovieHub.Controllers;
 
-/// <summary>
-/// Admin-only dashboard plus the two management areas (users, reviews) that
-/// don't already have a dedicated public controller. Movies, genres and
-/// actors are managed from their own controllers (MoviesController etc.) —
-/// those views show Create/Edit/Delete actions only when the signed-in user
-/// is in the Admin role, so there is a single source of truth for that CRUD.
-/// </summary>
+//Admin-only dashboard plus the two management areas (users, reviews) that
+//don't already have a dedicated public controller. Movies, genres and
+//actors are managed from their own controllers (MoviesController etc.) —
+//those views show Create/Edit/Delete actions only when the signed-in user
+//is in the Admin role, so there is a single source of truth for that CRUD.
 [Authorize(Roles = Roles.Admin)]
 [Route("Admin")]
 public class AdminController : Controller
